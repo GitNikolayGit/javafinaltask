@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Поездки</title>
+    <div th:insert="~{fragments/head :: head}"></div>
+</head>
+<body>
+<div th:insert="~{fragments/head :: navigation}"></div>
+
+<div class="container-fluid ">
+    <main class="col-sm p-3 mt-3">
+        <a class="btn btn-secondary active m-1" href="/route/new">Добавить</a>
+        <br>
+        <hr/>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Страна</th>
+                <th>Цель поездки</th>
+                <th>Дней</th>
+                <th>Стоимость</th>
+                <th>Клиент</th>
+                <th>Паспорт</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody th:each="route : ${routes}">
+            <tr>
+                <td th:text="${route.getId()}">id</td>
+                <td th:text="${route.getCountry().getTitle()}">country</td>
+                <td th:text="${route.getMotive().getTitle()}">motive</td>
+                <td th:text="${route.getDays()}">days</td>
+                <td th:text="${route.getPrice()}">price</td>
+                <td th:text="${route.getClient().getSurname() + ' ' + route.getClient().getFirstName() + ' ' + route.getClient().getPatronymic()}">client</td>
+                <td th:text="${route.getClient().getPassport()}">passport</td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/route/{id}/delete(id=${route.getId()})}">
+                        <input type="submit" value="удалить"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+</body>
+</html>

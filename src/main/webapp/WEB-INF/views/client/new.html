@@ -1,0 +1,26 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+
+    <title>Добавить</title>
+    <div th:insert="~{fragments/head :: head}"></div>
+</head>
+<body>
+
+<div th:insert="~{fragments/head :: navigation}"></div>
+
+
+<div class="container-fluid">
+    <main class="col-sm-6 p-3 mt-5">
+
+        <form class="form-control bg-light m-2 col-sm-5" th:method="POST" th:action="@{/}" th:object="${clients}">
+            <div th:insert="~{fragments/head :: createClient}"></div>
+            <div class="mb-3 mt-3">
+                <input type="submit" value="Добавить"/>
+            </div>
+        </form>
+    </main>
+</div>
+
+</body>
+</html>

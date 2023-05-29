@@ -1,0 +1,74 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modal">
+    <div class="modal" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Запрос 1</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    Выбирает информацию о маршрутах с заданной целью поездки
+                    <form id="form1" class="form-control bg-light m-2 col-sm-5" th:method="POST" th:action="@{/route/query1}" th:object="${motive}">
+                        <div class="mb-3 mt-3">
+                            <label for="motive">Цель поездки</label>
+                            <select class="form-control" th:object="${motive}" th:field="*{id}" id="motive">
+                                <option  th:each="motive : ${motives}" th:value="${motive.getId()}" th:text="${motive.getTitle()}"></option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- эта кнопка вполне себе может быть кнопкой submit, принадлежащей другой форме -->
+                    <button type="submit" form="form1" class="btn btn-outline-success" data-bs-dismiss="modal">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+// модальное окно для запроса 2
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="modalQuery2">
+    <div class="modal" id="myModal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Запрос 2</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Выбирает информацию о маршрутах с заданной целью поездки и стоимостью транспортных услуг менее заданного значения
+                    <!-- может быть форма, но submit модет быть за пределами формы -->
+                    <form id="form2" class="form-control bg-light m-2 col-sm-5" th:method="POST" th:action="@{/route/query2}" th:object="${route}">
+                        <div class="mb-3 mt-3">
+                            <label for="motive2">Цель поездки</label>
+                            <select class="form-control" th:object="${route.motive}" th:field="*{id}" id="motive2">
+                                <option  th:each="motive : ${motives}" th:value="${motive.getId()}" th:text="${motive.getTitle()}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3 mt-3">
+                            <label class="form-label" for="transportPrice">стоимостью транспортных услуг</label>
+                            <input class="form-control" type="number" th:field="*{country.transportPrice}" id="transportPrice"/>
+                            <div style="color:red" th:if="${#fields.hasErrors('country.transportPrice')}" th:errors="*{country.transportPrice}">price error</div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <!-- эта кнопка вполне себе может быть кнопкой submit, принадлежащей другой форме -->
+                    <button type="submit" form="form2" class="btn btn-danger" data-bs-dismiss="modal">Выбрать</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

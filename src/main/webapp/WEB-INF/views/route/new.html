@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Добавить</title>
+    <div th:insert="~{fragments/head :: head}"></div>
+</head>
+<body>
+<div th:insert="~{fragments/head :: navigation}"></div>
+
+<div class="container-fluid">
+    <main class="col-sm-6 p-3 mt-5">
+        <form class="form-control bg-light m-2 col-sm-5" th:method="POST" th:action="@{/route/create}" th:object="${route}">
+            <div class="mb-3 mt-3">
+                <label for="surname">Фамилия </label>
+                <input class="form-control" type="text" th:field="*{client.surname}" id="surname"/>
+
+                <div style="color:red" th:if="${#fields.hasErrors('client.surname')}" th:errors="*{client.surname}">surname error</div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="name">Имя </label>
+                <input class="form-control" type="text" th:field="*{client.firstName}" id="name"/>
+                <div style="color:red" th:if="${#fields.hasErrors('client.firstName')}" th:errors="*{client.firstName}">Name error</div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="patronymic">Отчество</label>
+                <input class="form-control" type="text" th:field="*{client.patronymic}" id="patronymic">
+                <div style="color:red" th:if="${#fields.hasErrors('client.patronymic')}" th:errors="*{client.patronymic}">patronymic error</div>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="passport">Паспорт</label>
+                <input class="form-control" type="text" th:field="*{client.passport}" id="passport"/>
+                <div style="color:red" th:if="${#fields.hasErrors('client.passport')}" th:errors="*{client.passport}">passport error</div>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="days">Количество дней</label>
+                <input class="form-control" type="number" th:value="*{days}" id="days"/>
+                <div style="color:red" th:if="${#fields.hasErrors('days')}" th:errors="*{days}">days error</div>
+            </div>
+
+
+            <div class="mb-3 mt-3">
+                <label for="country">Страна</label>
+                <select class="form-control" th:object="${route.country}" th:field="*{id}" id="country">
+                    <option  th:each="country : ${countries}" th:value="${country.getId()}" th:text="${country.getTitle()}"></option>
+                </select>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="motive">Цель поездки</label>
+                <select class="form-control" th:object="${route.motive}" th:field="*{id}" id="motive">
+                    <option  th:each="motive : ${motives}" th:value="${motive.getId()}" th:text="${motive.getTitle()}"></option>
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <input type="submit" value="Добавить"/>
+            </div>
+        </form>
+
+
+    </main>
+</div>
+</body>
+</html>

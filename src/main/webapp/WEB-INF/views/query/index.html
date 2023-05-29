@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Запросы</title>
+    <div th:insert="~{fragments/head :: head}"></div>
+</head>
+<body>
+<div th:insert="~{fragments/head :: navigation}"></div>
+
+<div class="container-fluid ">
+    <main class="col-sm p-3 mt-3">
+        <h6>Запрос 1</h6>
+        <p>Выбирает информацию о маршрутах с заданной целью поездки</p>
+        <form class="form-control bg-light m-2 w-25" th:method="POST" th:action="@{/query/query1}" th:object="${motive}">
+            <div class="mb-3 mt-3">
+                <label for="motive">Цель поездки</label>
+                <select class="form-control" th:object="${motive}" th:field="*{id}" id="motive">
+                    <option  th:each="motive : ${motives}" th:value="${motive.getId()}" th:text="${motive.getTitle()}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-outline-success" >Выбрать</button>
+        </form>
+        <br>
+        <hr/>
+        <h6>Запрос 2</h6>
+        <p>Выбирает информацию о маршрутах с заданной целью поездки<br>и стоимостью транспортных услуг менее заданного значения</p>
+        <form class="form-control bg-light m-2 w-25" th:method="POST" th:action="@{/query/query2}" th:object="${route}">
+            <div class="mb-3 mt-3">
+                <label for="motive2">Цель поездки</label>
+                <select class="form-control" th:object="${route.motive}" th:field="*{id}" id="motive2">
+                    <option  th:each="motive : ${motives}" th:value="${motive.getId()}" th:text="${motive.getTitle()}"></option>
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label" for="transportPrice">стоимостью транспортных услуг</label>
+                <input class="form-control" type="number" th:field="*{country.transportPrice}" id="transportPrice"/>
+                <div style="color:red" th:if="${#fields.hasErrors('country.transportPrice')}" th:errors="*{country.transportPrice}">price error</div>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Выбрать</button>
+        </form>
+        <br>
+        <hr/>
+        <h6>Запрос 3</h6>
+        <p>Выбирает информацию о клиентах, совершивших поездки с заданным количеством дней пребывания в стране</p>
+        <form class="form-control bg-light m-2 w-25" th:method="POST" th:action="@{/query/query3}" th:object="${route}">
+            <div class="mb-3 mt-3">
+                <label class="form-label" for="days">количество дней</label>
+                <input class="form-control" type="number" th:field="*{days}" id="days"/>
+                <div style="color:red" th:if="${#fields.hasErrors('days')}" th:errors="*{days}">days error</div>
+            </div>
+            <button type="submit" class="btn btn-outline-success">Выбрать</button>
+        </form>
+        <br>
+        <hr/>
+        <h6>Запрос 4</h6>
+        <p>Выбирает информацию о маршрутах с заданной целью поездки</p>
+        <form class="form-control bg-light m-2 w-25" th:method="POST" th:action="@{/query/query4}" th:object="${country}">
+            <div class="mb-3 mt-3">
+                <label for="country">Выбирает информацию о маршрутах в заданную страну</label>
+                <select class="form-control" th:object="${country}" th:field="*{id}" id="country">
+                    <option  th:each="country : ${countries}" th:value="${country.getId()}" th:text="${country.getTitle()}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-outline-success" >Выбрать</button>
+        </form>
+        <br>
+        <hr/>
+
+    </main>
+</div>
+
+</body>
+</html>
